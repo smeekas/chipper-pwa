@@ -34,7 +34,7 @@ registerRoute(
   new StaleWhileRevalidate({ cacheName: "locall" })
 );
 
-registerRoute(/https:\/\/backend-l0yc\.onrender\.com\/\/$/, (e) => {
+registerRoute(/https:\/\/backend-l0yc\.onrender\.com\/$/, (e) => {
   return fetch(e.request).then((res) => {
     const clonedRes = res.clone();
     console.log(clearAllData);
