@@ -33,7 +33,12 @@ registerRoute(
   /https:\/\/backend-l0yc\.onrender\.com\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
   new StaleWhileRevalidate({ cacheName: "locall" })
 );
-
+registerRoute(
+  /https:\/\/firebasestorage.googleapis\.com\/(.*?)/,
+  new StaleWhileRevalidate({
+    cacheName: "firebase img",
+  })
+);
 registerRoute(/https:\/\/backend-l0yc\.onrender\.com\/$/, (e) => {
   return fetch(e.request).then((res) => {
     const clonedRes = res.clone();
