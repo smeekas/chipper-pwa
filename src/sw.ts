@@ -1,0 +1,45 @@
+/// <reference lib="webworker" />
+declare const self: ServiceWorkerGlobalScope;
+
+// import {workbox-precaching}  from 'workbox-precaching'
+import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { StaleWhileRevalidate } from "workbox-strategies";
+import { PostType } from "./components/Feed/Feed";
+import { POST_STORE, clearAllData, writeData } from "./utils/indexDb";
+// export default null;
+// declare const self: ServiceWorkerGlobalScope;
+self.addEventListener("install", () => self.skipWaiting());
+precacheAndRoute(self.__WB_MANIFEST || []);
+self.addEventListener("activate", () => self.clients.claim());
+registerRoute((e) => {
+  console.log(e);
+  console.log(e.request, "req");
+  e.request.url.includes("http://localhost:3000/");
+}, createHandlerBoundToURL("/index.html"));
+registerRoute(
+  /https:\/\/images\.unsplash\.com\/(.*?)$/,
+  new StaleWhileRevalidate({
+    cacheName: "immmagg",
+  })
+);
+registerRoute(
+  /https:\/\/backend-l0yc\.onrender\.com\/\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
+  new StaleWhileRevalidate({ cacheName: "locall" })
+);
+
+registerRoute(/https:\/\/backend-l0yc\.onrender\.com\/\/$/, (e) => {
+  return fetch(e.request).then((res) => {
+    const clonedRes = res.clone();
+    console.log(clearAllData);
+    clearAllData(POST_STORE);
+    return clonedRes.json().then((data: PostType) => {
+      data.forEach((post) => {
+        writeData(POST_STORE, post);
+      });
+      return res;
+    });
+  });
+});
+
+// registerRoute("asasasasssff", );
