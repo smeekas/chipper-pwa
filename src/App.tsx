@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Feed from "./components/Feed/Feed";
 import Home from "./components/Home/Home";
+export let installPromopt: Event | null = null;
 function App() {
   return (
     <div className="appContainer">
@@ -21,5 +22,10 @@ function App() {
     </div>
   );
 }
-
+window.addEventListener("beforeinstallprompt", (e) => {
+  console.log("prevent install prompt");
+  e.preventDefault();
+  console.log(e);
+  installPromopt = e;
+});
 export default App;

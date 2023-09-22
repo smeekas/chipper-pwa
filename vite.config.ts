@@ -26,9 +26,24 @@ export default defineConfig({
         theme_color: "#ced4da",
         icons: [
           {
-            src: "vite.svg",
-            sizes: "192x192",
-            type: "image/svg",
+            src: "/images/icons/app-icon-48x48.png",
+            type: "image/png",
+            sizes: "48x48",
+          },
+          {
+            src: "/images/icons/app-icon-96x96.png",
+            type: "image/png",
+            sizes: "96x96",
+          },
+          {
+            src: "/images/icons/app-icon-144x144.png",
+            type: "image/png",
+            sizes: "144x144",
+          },
+          {
+            src: "/images/icons/app-icon-512x512.png",
+            type: "image/png",
+            sizes: "512x512",
           },
         ],
       },

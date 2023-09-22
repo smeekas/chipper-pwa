@@ -6,15 +6,18 @@
   background-color: cadetblue;
 }
 
-
-.links a{
+.links{
+  display: flex;
+}
+.links *{
         text-decoration: none;
+        display: block;
         color: white;
         margin-left: 1rem;
         padding: 12px;
         background-color: cornflowerblue;
         transition: all 0.2s;
 }
-.links a:hover{
+.links *:hover{
     background-color: rgb(75, 109, 173);
 }
