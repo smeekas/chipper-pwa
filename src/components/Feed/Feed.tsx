@@ -34,10 +34,9 @@ function Feed() {
       {!online && <h1>OFFLINE</h1>}
       {online && <h1>ONLINE</h1>}
       <div className={styles.feed}>
-        {online &&
-          posts.map((postItem) => {
-            return <Card {...postItem} key={postItem.id} />;
-          })}
+        {posts.map((postItem) => {
+          return <Card {...postItem} key={postItem.id} />;
+        })}
         {/* <Card
           title="title"
           content="content content content content "
