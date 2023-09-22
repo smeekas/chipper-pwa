@@ -13,6 +13,7 @@ function App() {
         <Route path="/feed" element={<Feed />} />
 
         <Route path="/help" />
+        <Route path="*"  element={<h1>404</h1>}/>
       </Routes>
 
       {/* <img

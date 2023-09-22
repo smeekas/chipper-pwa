@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-        navigateFallback: "index.html",
+        navigateFallback: "/",
       },
       strategies: "injectManifest",
       srcDir: "src",
@@ -20,6 +20,8 @@ export default defineConfig({
         type: "module",
       },
       manifest: {
+        start_url: "/",
+
         name: "YT Playlist Notifier",
         short_name: "YT Playlist Notifier",
         description: "Get notifications when YouTube playlists are updated.",

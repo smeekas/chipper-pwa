@@ -2,7 +2,7 @@
 declare const self: ServiceWorkerGlobalScope;
 
 // import {workbox-precaching}  from 'workbox-precaching'
-import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
+import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { PostType } from "./components/Feed/Feed";
@@ -11,15 +11,22 @@ import { POST_STORE, clearAllData, writeData } from "./utils/indexDb";
 // declare const self: ServiceWorkerGlobalScope;
 self.addEventListener("install", () => self.skipWaiting());
 precacheAndRoute(self.__WB_MANIFEST || []);
+console.log(self);
 self.addEventListener("activate", () => self.clients.claim());
-registerRoute((e) => {
-  console.log(e);
-  e.request.mode === "navigate";
-}, createHandlerBoundToURL("/index.html"));
+// registerRoute((e) => {
+//   console.log(e);
+//   e.request.mode === "navigate";
+// }, createHandlerBoundToURL("/index.html"));
 registerRoute(
   /https:\/\/images\.unsplash\.com\/(.*?)$/,
   new StaleWhileRevalidate({
     cacheName: "immmagg",
+  })
+);
+registerRoute(
+  /http:\/\/localhost:3000\/\/(.*?)$/,
+  new StaleWhileRevalidate({
+    cacheName: "urls",
   })
 );
 registerRoute(
