@@ -7,7 +7,7 @@ const dbPromise = openDB("posts-store", 1, {
     }
   },
 });
-export function writeData(st: string, data: any) {
+export function writeData(st: string, data: unknown) {
   return dbPromise.then((db) => {
     const tx = db.transaction(st, "readwrite");
     const store = tx.objectStore(st);
