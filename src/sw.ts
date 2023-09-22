@@ -14,8 +14,7 @@ precacheAndRoute(self.__WB_MANIFEST || []);
 self.addEventListener("activate", () => self.clients.claim());
 registerRoute((e) => {
   console.log(e);
-  console.log(e.request, "req");
-  e.request.url.includes("http://localhost:3000/");
+  e.request.mode === "navigate";
 }, createHandlerBoundToURL("/index.html"));
 registerRoute(
   /https:\/\/images\.unsplash\.com\/(.*?)$/,
