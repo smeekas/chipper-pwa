@@ -30,7 +30,7 @@ registerRoute(
   })
 );
 registerRoute(
-  /https:\/\/backend-l0yc\.onrender\.com\/\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
+  /https:\/\/backend-l0yc\.onrender\.com\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
   new StaleWhileRevalidate({ cacheName: "locall" })
 );
 
