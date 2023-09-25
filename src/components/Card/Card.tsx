@@ -1,12 +1,25 @@
 import { Card as AntfCard } from "antd";
 import styles from "./Card.module.css";
 import Meta from "antd/es/card/Meta";
+import { useNavigate } from "react-router-dom";
+import { url } from "../../utils/constants";
 type CardProps = {
   title: string;
   location: string;
   image: string;
+  id: string;
+  onDelete: (id: string) => void;
 };
-function Card({ location, image, title }: CardProps) {
+
+function Card({ location, image, title, id, onDelete }: CardProps) {
+  const navigate = useNavigate();
+  const onDeleteHandler = () => {
+    fetch(`${url}post/${id}`, { method: "delete" }).then((data) => {
+      if (data.ok) {
+        onDelete(id);
+      }
+    });
+  };
   return (
     <AntfCard
       className={styles.card}
@@ -18,10 +31,11 @@ function Card({ location, image, title }: CardProps) {
           className={styles.coverImg}
           src={image}
           alt="amsterdam"
+          onClick={() => navigate(`/post/${id}`)}
         />
         // </div>
       }
-      actions={["delete"]}
+      actions={[<h3 onClick={onDeleteHandler}>delete</h3>]}
     >
       <Meta title={title} description={location} />
     </AntfCard>

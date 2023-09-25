@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { installPromopt } from "../../App";
+import { askForPermission } from "../../utils/swUtils";
 function NavBar() {
   console.log(installPromopt);
   const onClick = () => {
@@ -20,12 +21,16 @@ function NavBar() {
       });
     }
   };
+  const onSubscribe = () => {
+    askForPermission();
+  };
   return (
     <div className={styles.navbar}>
       <h2>Chipper</h2>
       <div className={styles.links}>
         <Link to={"/"}>Home</Link>
         <Link to={"/feed"}>Feed</Link>
+        <div onClick={onSubscribe}>Subscribe</div>
         <div onClick={onClick}>Install</div>
       </div>
     </div>
