@@ -1,9 +1,14 @@
 import { openDB } from "idb";
 export const POST_STORE = "posts";
-const dbPromise = openDB("posts-store", 1, {
+export const SYNC = "back-sync";
+
+const dbPromise = openDB("posts-store", 2, {
   upgrade: (db) => {
-    if (!db.objectStoreNames.contains("posts")) {
+    if (!db.objectStoreNames.contains(POST_STORE)) {
       db.createObjectStore(POST_STORE, { keyPath: "id" });
+    }
+    if (!db.objectStoreNames.contains(SYNC)) {
+      db.createObjectStore(SYNC, { keyPath: "id" });
     }
   },
 });

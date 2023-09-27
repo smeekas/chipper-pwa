@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import styles from "./Home.module.css";
 import { Button, Form, Input, notification } from "antd";
 import { url } from "../../utils/constants";
+import useOnline from "../../hook/useOnline";
+import { SYNC, writeData } from "../../utils/indexDb";
 function Home() {
   const [location, setLocation] = useState<{
     lat: number;
@@ -9,6 +11,7 @@ function Home() {
   } | null>(null);
   const [declinedLocation, setDeclinedLocation] = useState(false);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const online = useOnline();
   const inputRef = useRef<HTMLInputElement>(null);
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -23,6 +26,26 @@ function Home() {
     );
   };
   const [postForm] = Form.useForm();
+  const sendOrSync = (formData: FormData) => {
+    // console.log(window);
+    if (navigator.serviceWorker && "SyncManager" in window) {
+      navigator.serviceWorker.ready.then((sw) => {
+        const postData = {
+          id: formData.get("id"),
+          title: formData.get("title"),
+          location: formData.get("location"),
+          image: formData.get("image"),
+        };
+        writeData(SYNC, postData)
+          .then(() => {
+            return sw.sync.register("sync-post");
+          })
+          .then(() => {
+            notification.success({ message: "POST stored for sync" });
+          });
+      });
+    }
+  };
   const finishHandler = () => {
     console.log(location);
     try {
@@ -41,6 +64,10 @@ function Home() {
         formData.append("location", `${location?.lat}|${location?.long}`);
       }
       formData.append("id", new Date().getTime().toString());
+      if (!online) {
+        sendOrSync(formData);
+        return;
+      }
       fetch(url, {
         method: "POST",
         body: formData,
@@ -62,7 +89,7 @@ function Home() {
     }
   };
   return (
-    <div className={styles.homeContainer}>
+    <div className={`${styles.homeContainer} ${!online ? styles.offline : ""}`}>
       <div className={styles.home}>
         <div className={styles.form}>
           <Form

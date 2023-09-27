@@ -40,7 +40,7 @@ function Feed() {
     });
   };
   return (
-    <div className={styles.feedContainer}>
+    <div className={`${styles.feedContainer} ${!online ? styles.offline : ""}`}>
       {!online && <h1>OFFLINE</h1>}
       {online && <h1>ONLINE</h1>}
       {loading && <Skeleton active />}

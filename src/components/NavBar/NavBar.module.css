@@ -21,3 +21,9 @@
 .links *:hover{
     background-color: rgb(75, 109, 173);
 }
+
+@media  (max-width:575px) {
+    .navbar{
+      flex-direction: column;
+    }
+}

@@ -6,7 +6,15 @@ import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { PostType } from "./components/Feed/Feed";
-import { POST_STORE, clearAllData, writeData } from "./utils/indexDb";
+import {
+  POST_STORE,
+  SYNC,
+  clearAllData,
+  deleteItem,
+  readAllData,
+  writeData,
+} from "./utils/indexDb";
+import { url } from "./utils/constants";
 // export default null;
 // declare const self: ServiceWorkerGlobalScope;
 self.addEventListener("install", () => self.skipWaiting());
@@ -103,3 +111,67 @@ async function notificationIteraction(id: string) {
       clients.openWindow(`https://react-pwa-three-green.vercel.app/post/${id}`);
   }
 }
+
+self.addEventListener("sync", (e) => {
+  console.log(e.tag);
+  if (e.tag === "sync-post") {
+    e.waitUntil(
+      readAllData(SYNC).then((data) => {
+        for (const postItem of data) {
+          console.log(postItem);
+          const postData = new FormData();
+          postData.append("title", postItem.title);
+          postData.append("location", postItem.location);
+          postData.append("id", postItem.id);
+          postData.append("image", postItem.image);
+          fetch(url, {
+            method: "POST",
+            body: postData,
+          })
+            .then((res) => {
+              if (res.ok) {
+                deleteItem("sync-posts", postItem.id);
+                console.log(data, "data synced successfully");
+              }
+            })
+            .catch(() => {
+              console.log("don;t clear posts which are stored for sync");
+            });
+        }
+      })
+    );
+  }
+});
+
+/*
+self.addEventListener("sync", (e) => {
+  console.log("back sync", e);
+  if (e.tag === "sync-new-post") {
+    console.log("syncing...");
+    e.waitUntil(
+      readAllData("sync-posts").then((data) => {
+        for (let dataItem of data) {
+          const postData = new FormData();
+          postData.append("title", dataItem.title);
+          postData.append("location", dataItem.location);
+          postData.append("id", dataItem.id);
+          postData.append("image", dataItem.image);
+          fetch(url, {
+            method: "POST",
+            body: postData,
+          })
+            .then((res) => {
+              if (res.ok) {
+                deleteItem("sync-posts", dataItem.id);
+                console.log(data, "data synced successfully");
+              }
+            })
+            .catch(() => {
+              console.log("don;t clear posts which are stored for sync");
+            });
+        }
+      })
+    );
+  }
+});
+*/

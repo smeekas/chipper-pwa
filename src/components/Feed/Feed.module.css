@@ -1,3 +1,7 @@
+.offline {
+  filter: grayscale(1) !important;
+}
+
 .feed {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -21,5 +25,11 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 575px) {
+  .feed {
+    grid-template-columns: 1fr;
   }
 }
