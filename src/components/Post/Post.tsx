@@ -26,6 +26,7 @@ function Post() {
       .then(() => console.log("Post shared successfully."))
       .catch((error) => console.log("Error sharing", error));
   };
+  const canShare = !!navigator.share;
   return (
     <div className={styles.post}>
       {loading && <Skeleton active />}
@@ -34,10 +35,14 @@ function Post() {
           <img src={post.image} width={320} />
           <h2>{post.title}</h2>
           <h3>&#128205; {post.location}</h3>
-          {!!navigator.share && (
+          {canShare ? (
             <Button onClick={onShare} className={styles.btn} type="link">
               SHARE
             </Button>
+          ) : (
+            <p className={styles.btn}>
+              share Api is not supported on your device!
+            </p>
           )}
         </div>
       )}
