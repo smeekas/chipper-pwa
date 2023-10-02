@@ -1,4 +1,4 @@
-import { Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { url } from "../../utils/constants";
@@ -16,7 +16,16 @@ function Post() {
         setLoading(false);
       });
   }, []);
-
+  const onShare = () => {
+    navigator
+      .share({
+        title: post?.title,
+        text: post?.title,
+        url: `https://react-pwa-three-green.vercel.app/post/${params.id}`,
+      })
+      .then(() => console.log("Post shared successfully."))
+      .catch((error) => console.log("Error sharing", error));
+  };
   return (
     <div className={styles.post}>
       {loading && <Skeleton active />}
@@ -25,6 +34,11 @@ function Post() {
           <img src={post.image} width={320} />
           <h2>{post.title}</h2>
           <h3>&#128205; {post.location}</h3>
+          {!!navigator.share && (
+            <Button onClick={onShare} className={styles.btn} type="link">
+              SHARE
+            </Button>
+          )}
         </div>
       )}
     </div>

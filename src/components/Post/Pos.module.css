@@ -18,3 +18,10 @@
 .postContent > h2 {
   font-size: 3rem;
 }
+.btn{
+  font-size: 2rem;
+  color: yellow;
+}
+.btn:hover{
+  color: rgb(197, 197, 0) !important;
+}
