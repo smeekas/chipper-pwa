@@ -22,10 +22,10 @@ export default defineConfig({
       manifest: {
         start_url: "/",
 
-        name: "YT Playlist Notifier",
-        short_name: "YT Playlist Notifier",
-        description: "Get notifications when YouTube playlists are updated.",
-        theme_color: "#ced4da",
+        name: "Chipper",
+        short_name: "Chipper",
+        description: "cheap social media.",
+        theme_color: "#130cb7",
         icons: [
           {
             src: "/images/icons/app-icon-48x48.png",

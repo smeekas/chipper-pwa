@@ -20,20 +20,24 @@ function Card({ location, image, title, id, onDelete }: CardProps) {
       }
     });
   };
+  const onImageClick = (id: string) => {
+    window.navigator.vibrate(200);
+    navigate(`/post/${id}`);
+  };
   return (
     <AntfCard
       className={styles.card}
       hoverable
       cover={
-        // <div className={styles.coverImgBg}>
-        <img
-          onLoad={() => console.log("loaded", title)}
-          className={styles.coverImg}
-          src={image}
-          alt="amsterdam"
-          onClick={() => navigate(`/post/${id}`)}
-        />
-        // </div>
+        <div className={styles.coverImgBg}>
+          <img
+            onLoad={() => console.log("loaded", title)}
+            className={styles.coverImg}
+            src={image}
+            alt="amsterdam"
+            onClick={() => onImageClick(id)}
+          />
+        </div>
       }
       actions={[<h3 onClick={onDeleteHandler}>delete</h3>]}
     >

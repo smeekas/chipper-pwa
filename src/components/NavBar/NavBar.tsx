@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { installPromopt } from "../../App";
 import { askForPermission } from "../../utils/swUtils";
 import { useEffect, useState } from "react";
 function NavBar() {
   console.log(installPromopt);
+  const navigate = useNavigate();
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const checkForExistingSubscription = async () => {
     navigator.serviceWorker.ready.then(async (sub) => {
@@ -55,7 +56,7 @@ function NavBar() {
   };
   return (
     <div className={styles.navbar}>
-      <h2>Chipper</h2>
+      <h2 onClick={() => navigate("feed")}>Chipper</h2>
       <div className={styles.links}>
         <Link to={"/"}>Home</Link>
         <Link to={"/feed"}>Feed</Link>

@@ -9,15 +9,17 @@ function App() {
   return (
     <div className="appContainer">
       <NavBar />
-      <Routes>
-        <Route path="/" index element={<Home />} />
-        <Route path="/feed" element={<Feed />} />
+      <div className="content">
+        <Routes>
+          <Route path="/" index element={<Home />} />
+          <Route path="/feed" element={<Feed />} />
 
-        <Route path="/help" />
-        <Route path="/post/:id" element={<Post />} />
+          <Route path="/help" />
+          <Route path="/post/:id" element={<Post />} />
 
-        <Route path="*" element={<h1>404</h1>} />
-      </Routes>
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Button, Form, Input, notification } from "antd";
 import { url } from "../../utils/constants";
 import useOnline from "../../hook/useOnline";
 import { SYNC, writeData } from "../../utils/indexDb";
+import { validationRules } from "../../utils/validationRules";
 function Home() {
   const [location, setLocation] = useState<{
     lat: number;
@@ -46,13 +47,14 @@ function Home() {
       });
     }
   };
-  const finishHandler = () => {
+  const finishHandler = async () => {
     console.log(location);
     try {
+      console.log(await postForm.validateFields());
+      await postForm.validateFields();
       if (!inputRef?.current?.files?.[0]) {
         throw new Error("Please select an Image");
       }
-
       console.log(postForm.getFieldsValue());
       const antDForm = postForm.getFieldsValue();
       const formData = new FormData();
@@ -97,7 +99,7 @@ function Home() {
             form={postForm}
             layout="vertical"
           >
-            <Form.Item required label="Title" name="title">
+            <Form.Item rules={validationRules.title} label="Title" name="title">
               <Input type="text" />
             </Form.Item>
             <div>
@@ -112,7 +114,11 @@ function Home() {
               {fileUrl && <img width={100} src={fileUrl} />}
             </div>
             {declinedLocation && (
-              <Form.Item required label="location" name="location">
+              <Form.Item
+                rules={validationRules.location}
+                label="location"
+                name="location"
+              >
                 <Input type="text" />
               </Form.Item>
             )}

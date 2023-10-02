@@ -11,10 +11,12 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "serve":"pnpm build && npx serve dist"
+    "serve": "pnpm build && npx serve dist"
   },
   "dependencies": {
+    "@types/google-map-react": "^2.1.8",
     "antd": "^5.9.2",
+    "google-map-react": "^2.2.1",
     "idb": "^7.1.1",
     "idb-keyval": "^6.2.1",
     "react": "^18.2.0",
