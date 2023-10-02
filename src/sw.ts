@@ -95,7 +95,7 @@ async function notificationIteraction(id: string) {
   // const clients = new Clients();
 
   // console.log(clients);
-  const allClients = await clients.matchAll({ type: "window" });
+  const allClients = await self.clients.matchAll({ type: "window" });
   //allClients =all winndows
   const foundedClient = allClients.find((c) => c.type === "window");
   //If in all Windows we  find current window;
@@ -107,8 +107,10 @@ async function notificationIteraction(id: string) {
     foundedClient.focus();
   } else {
     //we simply open new window
-    clients &&
-      clients.openWindow(`https://react-pwa-three-green.vercel.app/post/${id}`);
+    self.clients &&
+      self.clients.openWindow(
+        `https://react-pwa-three-green.vercel.app/post/${id}`
+      );
   }
 }
 
