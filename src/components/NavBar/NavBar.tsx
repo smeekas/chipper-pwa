@@ -21,14 +21,16 @@ function NavBar() {
   useEffect(() => {
     checkForExistingSubscription();
   }, []);
-  const onUnsubscribe = async () => {
+  const onUnsubscribe = () => {
     navigator.serviceWorker.ready
-      .then(async (sub) => {
+      .then((sub) => {
+        console.log(sub);
         return sub.pushManager.getSubscription();
       })
       .then((subscriptions) => subscriptions?.unsubscribe())
       .then((status) => {
         if (status) {
+          alert("successfully unsubscribed");
           setIsSubscribed(false);
         }
       });
@@ -61,7 +63,7 @@ function NavBar() {
         {window.Notification && !isSubscribed && (
           <div onClick={onSubscribe}> {"Subscribe"}</div>
         )}
-        {isSubscribed && <div onClick={onUnsubscribe}>UnSubscribe</div>}
+        {<div onClick={onUnsubscribe}>UnSubscribe</div>}
         <div onClick={onClick}>Install</div>
       </div>
     </div>

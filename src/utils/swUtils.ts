@@ -7,18 +7,21 @@ export function askForPermission() {
       console.log("NO NOTIFICATION ACCESS");
       return;
     }
+    console.log("HERE")
     configurePushSub();
     // displayConfirmNotification();
   });
 }
 
 export async function configurePushSub() {
-  if (!navigator.serviceWorker) return;
   try {
+  if (!navigator.serviceWorker) return;
+  console.log("SW exits")
     const sw = await navigator.serviceWorker.ready;
+    console.log(sw)
     const subscription = await sw.pushManager.getSubscription();
-    sw.pushManager.getSubscription();
     console.log(subscription);
+    sw.pushManager.getSubscription();
     if (subscription == null) {
       //no subscription so create new
       if (!import.meta.env.VITE_PUB_KEY) {
