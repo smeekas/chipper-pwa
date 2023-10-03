@@ -3,7 +3,7 @@ export function init() {
     if (navigator.serviceWorker) {
       console.log(import.meta.env.MODE);
       const swUrl =
-        import.meta.env.MODE === "prod" ? `/sw.js` : "/dev-sw.js?dev-sw";
+        import.meta.env.MODE === "production" ? `/sw.js` : "/dev-sw.js?dev-sw";
       navigator.serviceWorker.register(swUrl, { scope: "/", type: "module" });
     }
   });
