@@ -24,7 +24,9 @@ function Feed() {
       setPosts(data);
       setLoading(false);
     } catch (err) {
+      console.log("CATCH");
       readAllData(POST_STORE).then((data) => {
+        console.log("DATA", data);
         setPosts(data);
         setLoading(false);
       });

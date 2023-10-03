@@ -44,7 +44,7 @@ registerRoute(
 );
 
 registerRoute(
-  /https:\/\/backend-l0yc\.onrender\.com\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
+  /https:\/\/chipper-backend\.onrender\.com\/static\/[a-zA-Z0-9_-]*\.[jpg|png]/,
   new StaleWhileRevalidate({ cacheName: "locall" })
 );
 registerRoute(
@@ -53,7 +53,7 @@ registerRoute(
     cacheName: "firebase img",
   })
 );
-registerRoute(/https:\/\/backend-l0yc\.onrender\.com\/$/, (e) => {
+registerRoute(/https:\/\/chipper-backend\.onrender\.com\/$/, (e) => {
   return fetch(e.request).then((res) => {
     const clonedRes = res.clone();
     console.log(clearAllData);
@@ -101,16 +101,12 @@ async function notificationIteraction(id: string) {
   //If in all Windows we  find current window;
   if (foundedClient) {
     //if current window is open(exists) then we open new tab
-    foundedClient.navigate(
-      `https://react-pwa-three-green.vercel.app/post/${id}`
-    );
+    foundedClient.navigate(`https://chipper-pwa.vercel.app/post/${id}`);
     foundedClient.focus();
   } else {
     //we simply open new window
     self.clients &&
-      self.clients.openWindow(
-        `https://react-pwa-three-green.vercel.app/post/${id}`
-      );
+      self.clients.openWindow(`https://chipper-pwa.vercel.app/post/${id}`);
   }
 }
 
