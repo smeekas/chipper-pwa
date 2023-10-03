@@ -19,7 +19,7 @@ import { url } from "./utils/constants";
 // declare const self: ServiceWorkerGlobalScope;
 self.addEventListener("install", () => self.skipWaiting());
 precacheAndRoute(self.__WB_MANIFEST || []);
-console.log(self);
+// console.log(self);
 self.addEventListener("activate", () => self.clients.claim());
 // registerRoute((e) => {
 //   console.log(e);
@@ -56,14 +56,12 @@ registerRoute(
 registerRoute(/https:\/\/chipper-backend\.onrender\.com\/$/, (e) => {
   return fetch(e.request).then((res) => {
     const clonedRes = res.clone();
-    console.log(clearAllData);
+    // console.log(clearAllData);
     clearAllData(POST_STORE);
     return clonedRes.json().then((data: PostType) => {
       data.forEach((post) => {
         console.log("writting " + post.title);
-        writeData(POST_STORE, post)
-          .then(() => console.log("successfully written"))
-          .catch((err) => console.log("failed " + err));
+        writeData(POST_STORE, post);
       });
       return res;
     });
