@@ -15,10 +15,10 @@ export default defineConfig({
       filename: "sw.ts",
       includeManifestIcons: false,
       injectRegister: "auto",
-      devOptions: {
-        enabled: true,
-        type: "module",
-      },
+      // devOptions: {
+      //   enabled: true,
+      //   type: "module",
+      // },
       manifest: {
         start_url: "/",
 
