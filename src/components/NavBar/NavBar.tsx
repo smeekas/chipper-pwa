@@ -10,9 +10,7 @@ function NavBar() {
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const checkForExistingSubscription = async () => {
     navigator.serviceWorker.ready.then(async (sub) => {
-      console.log(sub);
       const allSub = await sub.pushManager.getSubscription();
-      console.log(allSub);
       if (allSub) {
         setIsSubscribed(true);
       } else {

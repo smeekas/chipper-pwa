@@ -21,8 +21,8 @@ export async function configurePushSub() {
     console.log(subscription);
     if (subscription == null) {
       //no subscription so create new
-      const vapidPubKey =
-        "BJ8LOvp17TjuhoQzT1HdfSNv5dhRSU81hGGckiHgJFuxttYbceNHLDqYT1gwjPLfRxm23b3zrUPP-RWt54x91Tw";
+      const vapidPubKey =import.meta.env.VITE_PUB_KEY
+        // "BJ8LOvp17TjuhoQzT1HdfSNv5dhRSU81hGGckiHgJFuxttYbceNHLDqYT1gwjPLfRxm23b3zrUPP-RWt54x91Tw";
       const newSubscription = await sw.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(vapidPubKey),
