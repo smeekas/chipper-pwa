@@ -63,7 +63,12 @@ function Home() {
       if (declinedLocation) {
         formData.append("location", antDForm.location);
       } else {
-        formData.append("location", `${location?.lat}|${location?.long}`);
+        if(location?.lat && location?.long){
+
+          formData.append("location", `${location?.lat}|${location?.long}`);
+        }else{
+          formData.append("location", `lat|long`);
+        }
       }
       formData.append("id", new Date().getTime().toString());
       if (!online) {
