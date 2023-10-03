@@ -21,7 +21,11 @@ export async function configurePushSub() {
     console.log(subscription);
     if (subscription == null) {
       //no subscription so create new
-      const vapidPubKey =import.meta.env.VITE_PUB_KEY
+      if (!import.meta.env.VITE_PUB_KEY) {
+        alert("no key found");
+        return;
+      }
+      const vapidPubKey = import.meta.env.VITE_PUB_KEY;
       const newSubscription = await sw.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(vapidPubKey),
