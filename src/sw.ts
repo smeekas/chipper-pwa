@@ -60,7 +60,10 @@ registerRoute(/https:\/\/chipper-backend\.onrender\.com\/$/, (e) => {
     clearAllData(POST_STORE);
     return clonedRes.json().then((data: PostType) => {
       data.forEach((post) => {
-        writeData(POST_STORE, post);
+        console.log("writting " + post.title);
+        writeData(POST_STORE, post)
+          .then(() => console.log("successfully written"))
+          .catch((err) => console.log("failed " + err));
       });
       return res;
     });

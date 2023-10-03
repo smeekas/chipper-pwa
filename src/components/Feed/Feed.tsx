@@ -34,6 +34,11 @@ function Feed() {
     }
   };
   useEffect(() => {
+    readAllData(POST_STORE).then((data) => {
+      console.log("DATA", data);
+      setPosts(data);
+      setLoading(false);
+    });
     fetchPost();
   }, []);
   const onDeleteHandler = (id: string) => {
