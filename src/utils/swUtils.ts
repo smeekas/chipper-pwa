@@ -36,7 +36,6 @@ export async function configurePushSub() {
         body: JSON.stringify(newSubscription),
       });
       if (response.ok) {
-        console.log(await response.json(), "WOHO");
         displayConfirmNotification();
       }
     } else {
