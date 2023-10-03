@@ -26,7 +26,7 @@ function App() {
 window.addEventListener("beforeinstallprompt", (e) => {
   console.log("prevent install prompt");
   e.preventDefault();
-  console.log(e);
+  // console.log(e);
   installPromopt = e;
 });
 export default App;

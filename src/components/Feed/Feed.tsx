@@ -51,6 +51,7 @@ function Feed() {
       {!online && <h1>OFFLINE</h1>}
       {online && <h1>ONLINE</h1>}
       {loading && <Skeleton active />}
+      {posts.toString()}
       <div className={styles.feed}>
         {posts.map((postItem) => {
           return (
