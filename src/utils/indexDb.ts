@@ -2,7 +2,7 @@ import { openDB } from "idb";
 export const POST_STORE = "posts";
 export const SYNC = "back-sync";
 
-const dbPromise = openDB("posts-store", 2, {
+const dbPromise = openDB("posts-store", 3, {
   upgrade: (db) => {
     if (!db.objectStoreNames.contains(POST_STORE)) {
       db.createObjectStore(POST_STORE, { keyPath: "id" });
